@@ -79,7 +79,21 @@ void drawNotePads() {
   clearRect(1, 1, 8, 8);
 
   if (drumTrack[track]) {
-    u8 evenOctave = (octave[track] % 2 == 0);
+    // draw the 3 drum banks
+    for (u8 bank = 0; bank < 3; bank++) { // iterat over 3 banks
+      for (u8 row = 0; row < 3; row++) {  //  2 rows
+        for (u8 col = 0; col < 8; col++) {// 7 buttons per row
+          if (bank == 0 && bank == 2) {
+            hal_plot_led(TYPEPAD, 11 + row * 10 + col + bank * 20, WHITE_KEY_COLOR_R, WHITE_KEY_COLOR_G, WHITE_KEY_COLOR_B);
+          } else {
+            hal_plot_led(TYPEPAD, 11 + row * 10 + col + bank * 20, BLACK_KEY_COLOR_R, BLACK_KEY_COLOR_G, BLACK_KEY_COLOR_B);
+          }
+        }
+      }
+    }
+    // draw midi prog change digits
+    
+    /*u8 evenOctave = (octave[track] % 2 == 0);
     for (u8 i = 0; i < 8; i++) {
       if ((evenOctave && (i == 0 || i > 4)) || (!evenOctave && i >= 1 && i <= 4)) {
         for (u8 j = 0; j < 4; j++) {
@@ -93,7 +107,7 @@ void drawNotePads() {
     }
     if (octave[track] == 7) {
       clearRect(3, 5, 6, 8);
-    }
+    }*/
   } else {
     for (u8 i = 0; i < 4; i++) {
       for (u8 j = 0; j < 7; j++) {
